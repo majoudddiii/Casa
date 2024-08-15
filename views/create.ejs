@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="/styles/index.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body class="bg">
+    <!--Header-->
+  <%- include("partials/header.ejs") %>
+
+      <!--Create-->
+      <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+          <div>
+            <h1 class="display-5 fw-bold lh-1 mb-3 text blueText"><u>Post your own places</u></h1>
+            <p class="lead text pt-3 create"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <main>
+            <form action="/publish" method="POST">
+          <div class="py-5 text-center">
+            <h2 class="largeText">Post form</h2>
+            <p class="lead textLight">Create your own post highliting details about your property. Show off all the features that people will look for.</p>
+          </div>
+      
+
+            <div class="col-md- col-lg-8">
+              
+              <form class="needs-validation" novalidate="">
+                <div class="row g-3">
+      
+                  <div class="col-12">
+                    <label  class="form-label textLight">Building Name</label>
+                    <div class="input-group has-validation">
+                      <input type="text" class="form-control" name="buildingName" id="buildingName" placeholder="Orlando four seasons" required="">
+                    <div class="invalid-feedback">
+                        Your Building name is required.
+                      </div>
+                    <div data-lastpass-icon-root="" style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div></div>
+                  </div>
+      
+                  <div class="col-12">
+                    <label for="address" class="form-label textLight">Address</label>
+                    <input type="text" class="form-control" name="address" id="address" placeholder="1234 Main St" required="">
+                    <div class="invalid-feedback">
+                      Please enter your address.
+                    </div>
+                  </div>
+      
+                
+      
+                  <div class="col-md-5">
+                    <label for="country" class="form-label textLight">Country</label>
+                    <select class="form-select" name="country" id="country" required="">
+                      <option value="">Choose...</option>
+                      <option>Libya</option>
+                      <option>Egypt</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please select a valid country.
+                    </div>
+                  </div>
+      
+                  <div class="col-md-7">
+                    <label for="city" class="form-label textLight">City</label>
+                    <input type="text" class="form-control" name="city" id="address" placeholder="Tripoli" required="">
+                    <div class="invalid-feedback">
+                      Please enter your city.
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <label for="bedroom" class="form-label textLight">Bedroom</label>
+                    <select class="form-select" name="bedrom" id="beedrom" required="">
+                      <option value="">Choose...</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please select a valid number.
+                    </div>
+                  </div>
+  
+                  <div class="col-md-2">
+                    <label for="bathroom" class="form-label textLight">Bathroom</label>
+                    <select class="form-select" name="bathroom" id="bathroom" required="">
+                      <option value="">Choose...</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please select a valid number.
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label for="size" class="form-label textLight">Size</label>
+                    <input type="text" class="form-control" name="size" id="size" placeholder="m squared" required="">
+                    <div class="invalid-feedback">
+                      Please enter a valid number.
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label for="picture" class="form-label textLight">picture</label>
+                    <input type="file" class="form-control" name="picture" id="picture" required="" accept=".png">
+                    <div class="invalid-feedback">
+                      Please secelt a valid photo.
+                    </div>
+                  </div>
+                  
+
+                </div>
+      
+                <hr class="my-4">
+      
+                <!--<div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="same-address">
+                  <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
+                </div>
+      
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="save-info">
+                  <label class="form-check-label" for="save-info">Save this information for next time</label>
+                </div>-->
+      
+                <hr class="my-4">
+      
+                
+      
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Create</button>
+              </form>
+            </div>
+          </div>
+        </form>
+        </main>
+      </div>
+
+
+    <script src="/js/create.js"></script>
+</body>
+</html>

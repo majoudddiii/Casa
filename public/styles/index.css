@@ -1,0 +1,70 @@
+.bg {
+    background-color: #1c1c1c;
+}
+
+.header {
+    background-color: #6193C2;
+}
+
+.headerLogo {
+    font-size: 40px;
+    font-family: cardo;
+}
+
+.text {
+    color: white;
+    font-size: 30px;
+    text-align: justify;
+}
+
+.blueText {
+    color: #6193C2;
+    font-size: 40px;
+    text-align: left;
+}
+
+.grid {
+    height: 600px;
+}
+
+.tbg {
+    background: black;
+}
+
+.title {
+    text-align: center;
+    color: #6193C2;
+    font-size: 75px;
+}
+
+.logoi {
+    display: block;
+    margin: auto;
+}
+
+.largeText {
+    color: #6193C2;
+    font-size: 30px;
+    text-align: left;
+}
+
+.textLight {
+    color: white;
+    font-size: 20px;
+    text-align: justify;
+}
+
+.create {
+    color: white;
+}
+
+.headerButtons {
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.inlineBox {
+    display: inline;
+}
