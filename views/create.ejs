@@ -13,18 +13,9 @@
   <%- include("partials/header.ejs") %>
 
       <!--Create-->
-      <div class="container col-xxl-8 px-4 py-5">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-          <div>
-            <h1 class="display-5 fw-bold lh-1 mb-3 text blueText"><u>Post your own places</u></h1>
-            <p class="lead text pt-3 create"></p>
-          </div>
-        </div>
-      </div>
-
       <div class="container">
         <main>
-            <form action="/publish" method="POST">
+            <form action="/publish" method="POST" enctype="multipart/form-data">
           <div class="py-5 text-center">
             <h2 class="largeText">Post form</h2>
             <p class="lead textLight">Create your own post highliting details about your property. Show off all the features that people will look for.</p>
@@ -113,8 +104,8 @@
                   </div>
 
                   <div class="col-md-4">
-                    <label for="picture" class="form-label textLight">picture</label>
-                    <input type="file" class="form-control" name="picture" id="picture" required="" accept=".png">
+                    <label for="image" class="form-label textLight">picture</label>
+                    <input type="file" class="form-control" name="image" id="image" required="">
                     <div class="invalid-feedback">
                       Please secelt a valid photo.
                     </div>
