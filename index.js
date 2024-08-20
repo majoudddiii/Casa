@@ -54,27 +54,34 @@ app.post("/upload", upload.array('picture', 10), (req, res) => {
     console.log('Body:', req.body);
 
     const files = req.files;
-    const { buildingName, country, city, address, size, bedrom, bathroom } = req.body;
+    const { buildingName, city, town, address, size, bedrom, bathroom, pool, poolSize, roomService, commentsText } = req.body;
 
     // Initialize session data if it doesn't exist
     if (!req.session.uploadedData) {
         req.session.uploadedData = [];
     }
 
-    // Add new data to the session array
-    const newData = files.map(file => ({
-        picture: `/uploads/${file.filename}`,
+    // Create an array of image paths
+    const imagePaths = files.map(file => `/uploads/${file.filename}`);
+
+    // Create a new post object
+    const newPost = {
+        pictures: imagePaths,
         buildingName,
-        country,
         city,
+        town,
         address,
         size,
         bedrom,
-        bathroom
-    }));
+        bathroom,
+        pool: pool === "on",
+        poolSize: pool === "on" ? poolSize : null,
+        roomService: roomService === "on",
+        commentsText,
+    };
 
     // Only add new data to the session
-    req.session.uploadedData.push(...newData);
+    req.session.uploadedData.push(newPost);
 
     console.log('Uploaded Data:', req.session.uploadedData);
 

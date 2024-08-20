@@ -99,6 +99,7 @@
     max-width: 500px;
     width: 90%;
     text-align: center;
+    padding: 30px;
 }
 
 /* Close button */
@@ -113,4 +114,53 @@
 
 .close-btn:hover {
     color: #000; /* Change color on hover */
+}
+
+
+.poolCheckContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.poolCheckContainer input[type="checkbox"] {
+    display: block;
+    margin-right: 10px;
+}
+
+.poolCheckContainer input[type="text"] {
+    visibility: hidden;
+    margin-left: 10px;
+    width: 110px;
+}
+
+.poolCheckContainer input[type="checkbox"]:checked ~ input[type="text"] {
+    visibility: visible;
+}
+
+.roomServiceContainer {
+    display: block;
+    margin-right: 10px;
+    text-align: left;
+}
+
+.comments-area {
+    width: 120%;
+    max-width: 100%;
+    min-height: 200px;
+    height: 200px;
+    word-wrap: break-word;
+    resize: vertical; /* Allows users to resize the textarea vertically only */
+    overflow-wrap: break-word;
+  }
+
+  #overlayData {
+    text-align: left;
+  }
+
+  
+  .carousel-item img {
+    height: 250px; /* Set your desired height here */
+    object-fit: cover; /* This ensures the image covers the area while maintaining aspect ratio */
+    width: 100%;
 }

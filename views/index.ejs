@@ -42,12 +42,43 @@
                     <% uploadedData.forEach((data, index) => { %>
                     <div class="col">
                         <div class="card shadow-sm">
-                            <% if (data.picture) { %>
-                            <img src="<%= data.picture %>" class="bd-placeholder-img card-img-top" alt="Image" width="100%" height="225">
+                            <% if (data.pictures && data.pictures.length > 0) { %>
+                                <div id="carousel<%= index %>" class="carousel slide mb-6">
+                                    <div class="carousel-indicators">
+                                        <% data.pictures.forEach((_, picIndex) => { %>
+                                            <button 
+                                                type="button" 
+                                                data-bs-target="#carousel<%= index %>" 
+                                                data-bs-slide-to="<%= picIndex %>" 
+                                                class="<%= picIndex === 0 ? 'active' : '' %>" 
+                                                aria-current="<%= picIndex === 0 ? 'true' : 'false' %>" 
+                                                aria-label="Slide <%= picIndex + 1 %>">
+                                            </button>
+                                        <% }) %>
+                                    </div>
+                                    <div class="carousel-inner">
+                                        <% data.pictures.forEach((picture, picIndex) => { %>
+                                            <div class="carousel-item <%= picIndex === 0 ? 'active' : '' %>">
+                                                <img src="<%= picture %>" class="d-block w-100" alt="Image">
+                                                <div class="container">
+                                                    
+                                                </div>
+                                            </div>
+                                        <% }) %>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel<%= index %>" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel<%= index %>" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
                             <% } %>
                             <div class="card-body">
                                 <p class="card-text">
-                                    <%= data.buildingName %>. <%= data.country %>, <%= data.city %>, <%= data.address %> <hr> <%= data.size %> ㎡
+                                    <%= data.buildingName %>. <%= data.city %>, <%= data.town %>, <%= data.address %> <hr> <%= data.size %> ㎡
                                 </p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <small class="text-body-secondary">
@@ -56,14 +87,19 @@
                                 </div>
                             </div>
                             <button type="button" class="btn btn-sm btn-outline-secondary viewButton"
-                                data-picture="<%= data.picture %>"
+                                data-picture="<%= data.pictures.join(',') %>"
                                 data-building-name="<%= data.buildingName %>"
-                                data-country="<%= data.country %>"
                                 data-city="<%= data.city %>"
+                                data-town="<%= data.town %>"
                                 data-address="<%= data.address %>"
                                 data-size="<%= data.size %>"
                                 data-bedrom="<%= data.bedrom %>"
-                                data-bathroom="<%= data.bathroom %>">
+                                data-bathroom="<%= data.bathroom %>"
+                                data-pool="<%= data.pool %>"
+                                data-poolsize="<%= data.poolSize %>"
+                                data-roomService="<%= data.roomService %>"
+                                data-commentsText="<%= data.commentsText %>"
+                                >
                                 View
                             </button>
                         </div>
@@ -90,6 +126,7 @@
           <div id="overlayData">
               <!-- Dynamic data will be injected here -->
           </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary">Proceed</button>
       </div>
     </div>
   

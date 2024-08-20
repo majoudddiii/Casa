@@ -13,130 +13,112 @@
   <%- include("partials/header.ejs") %>
 
       <!--Create-->
-      <div class="container">
+      <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <main>
-            <form action="/upload" method="POST" enctype="multipart/form-data">
-          <div class="py-5 text-center">
-            <h2 class="largeText">Post form</h2>
-            <p class="lead textLight">Create your own post highliting details about your property. Show off all the features that people will look for.</p>
-          </div>
-      
-
-            <div class="col-md- col-lg-8">
-              
-              <form class="needs-validation" novalidate="">
+            <form action="/upload" method="POST" enctype="multipart/form-data" class="w-100" style="max-width: 600px;">
+                <div class="py-5 text-center">
+                    <h2 class="largeText">Post form</h2>
+                    <p class="lead textLight">Create your own post highlighting details about your property. Show off all the features that people will look for.</p>
+                </div>
+    
                 <div class="row g-3">
-      
-                  <div class="col-12">
-                    <label  class="form-label textLight">Building Name</label>
-                    <div class="input-group has-validation">
-                      <input type="text" class="form-control" name="buildingName" id="buildingName" placeholder="Orlando four seasons" required="">
-                    <div class="invalid-feedback">
-                        Your Building name is required.
-                      </div>
-                    <div data-lastpass-icon-root="" style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div></div>
-                  </div>
-      
-                  <div class="col-12">
-                    <label for="address" class="form-label textLight">Address</label>
-                    <input type="text" class="form-control" name="address" id="address" placeholder="1234 Main St" required="">
-                    <div class="invalid-feedback">
-                      Please enter your address.
+                    <div class="col-12">
+                        <label class="form-label textLight">Building Name</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" name="buildingName" id="buildingName" placeholder="Orlando four seasons" required="">
+                            <div class="invalid-feedback">Your Building name is required.</div>
+                        </div>
                     </div>
-                  </div>
-      
-                
-      
-                  <div class="col-md-5">
-                    <label for="country" class="form-label textLight">Country</label>
-                    <select class="form-select" name="country" id="country" required="">
-                      <option value="">Choose...</option>
-                      <option>Libya</option>
-                      <option>Egypt</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Please select a valid country.
+    
+                    <div class="col-12">
+                        <label for="address" class="form-label textLight">Address</label>
+                        <input type="text" class="form-control" name="address" id="address" placeholder="1234 Main St" required="">
+                        <div class="invalid-feedback">Please enter your address.</div>
                     </div>
-                  </div>
-      
-                  <div class="col-md-7">
-                    <label for="city" class="form-label textLight">City</label>
-                    <input type="text" class="form-control" name="city" id="address" placeholder="Tripoli" required="">
-                    <div class="invalid-feedback">
-                      Please enter your city.
+    
+                    <div class="col-md-5">
+                        <label for="city" class="form-label textLight">City</label>
+                        <select class="form-select" name="city" id="city" required="">
+                            <option value="">Choose...</option>
+                            <option>Triopli</option>
+                            <option>Benghazi</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a valid city.</div>
                     </div>
-                  </div>
-
-                  <div class="col-md-2">
-                    <label for="bedroom" class="form-label textLight">Bedroom</label>
-                    <select class="form-select" name="bedrom" id="beedrom" required="">
-                      <option value="">Choose...</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Please select a valid number.
+    
+                    <div class="col-md-7">
+                        <label for="town" class="form-label textLight">Town</label>
+                        <input type="text" class="form-control" name="town" id="town" placeholder="Ain-Zara" required="">
+                        <div class="invalid-feedback">Please enter your town.</div>
                     </div>
-                  </div>
-  
-                  <div class="col-md-2">
-                    <label for="bathroom" class="form-label textLight">Bathroom</label>
-                    <select class="form-select" name="bathroom" id="bathroom" required="">
-                      <option value="">Choose...</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Please select a valid number.
+    
+                    <div class="col-md-2">
+                        <label for="bedroom" class="form-label textLight">Bedroom</label>
+                        <select class="form-select" name="bedrom" id="beedrom" required="">
+                            <option value="">Choose...</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a valid number.</div>
                     </div>
-                  </div>
-
-                  <div class="col-md-4">
-                    <label for="size" class="form-label textLight">Size</label>
-                    <input type="text" class="form-control" name="size" id="size" placeholder="m squared" required="">
-                    <div class="invalid-feedback">
-                      Please enter a valid number.
+    
+                    <div class="col-md-2">
+                        <label for="bathroom" class="form-label textLight">Bathroom</label>
+                        <select class="form-select" name="bathroom" id="bathroom" required="">
+                            <option value="">Choose...</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a valid number.</div>
                     </div>
-                  </div>
-
-                  <div class="col-md-4">
-                    <label for="picture" class="form-label textLight">picture</label>
-                    <input type="file" class="form-control" name="picture" id="picture" required="" multiple>
-                    <div class="invalid-feedback">
-                      Please secelt a valid photo.
+    
+                    <div class="col-md-4">
+                        <label for="size" class="form-label textLight">Size</label>
+                        <input type="text" class="form-control" name="size" id="size" placeholder="m squared" required="">
+                        <div class="invalid-feedback">Please enter a valid number.</div>
                     </div>
-                  </div>
-                  
-
+    
+                    <div class="col-md-4">
+                        <label for="picture" class="form-label textLight">Picture</label>
+                        <input type="file" class="form-control" name="picture" id="picture" required="" multiple>
+                        <div class="invalid-feedback">Please select a valid photo.</div>
+                    </div>
                 </div>
-      
+    
                 <hr class="my-4">
-      
-                <!--<div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="same-address">
-                  <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
-                </div>
-      
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="save-info">
-                  <label class="form-check-label" for="save-info">Save this information for next time</label>
-                </div>-->
-      
+    
+                <div class="form-check poolCheckContainer text-center">
+                  <input type="checkbox" class="form-check-input" name="pool" id="pool">
+                  <label class="form-check-label textLight" for="pool">Pool</label>
+                  <input type="text" class="form-control col-1 mt-2" name="poolSize" id="poolSize" placeholder="Size m x m">
+              </div>
+              
+              <div class="form-check roomServiceContainer d-flex justify-content-between align-items-center mt-4">
+                  <div class="d-flex align-items-center">
+                      <input type="checkbox" class="form-check-input" name="roomService" id="roomService">
+                      <label class="form-check-label textLight ms-2" for="roomService">Room Service</label>
+                  </div>
+              </div>
+
+              <div class="form-check text-center mt-4 w-100">
+                <label class="form-check-label textLight" for="comments">Extra Comments</label>
+                <textarea class="form-control comments-area mt-2" name="commentsText" id="commentsText" placeholder="Add any extra comments here."></textarea>
+              </div>
+              
+    
                 <hr class="my-4">
-      
-                
-      
+    
                 <button class="w-100 btn btn-primary btn-lg" type="submit">Create</button>
-              </form>
-            </div>
-          </div>
-        </form>
+            </form>
         </main>
-      </div>
+    </div>
+    
 
       <!--Footer-->
       <%- include("partials/footer.ejs") %>
