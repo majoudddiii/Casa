@@ -55,7 +55,7 @@
                     <div class="col-md-2">
                         <label for="bedroom" class="form-label textLight">Bedroom</label>
                         <select class="form-select" name="bedrom" id="beedrom" required="">
-                            <option value="">Choose...</option>
+                            <option value=""></option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -68,7 +68,7 @@
                     <div class="col-md-2">
                         <label for="bathroom" class="form-label textLight">Bathroom</label>
                         <select class="form-select" name="bathroom" id="bathroom" required="">
-                            <option value="">Choose...</option>
+                            <option value=""></option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -110,6 +110,12 @@
                 <label class="form-check-label textLight" for="comments">Extra Comments</label>
                 <textarea class="form-control comments-area mt-2" name="commentsText" id="commentsText" placeholder="Add any extra comments here."></textarea>
               </div>
+
+              <div class="col-3 pt-3">
+                <label for="prise" class="form-label textLight">Price Per Night</label>
+                <input type="number" class="form-control" name="price" id="size" placeholder="LYD" required="">
+                <div class="invalid-feedback">Please enter a valid number.</div>
+            </div>
               
     
                 <hr class="my-4">

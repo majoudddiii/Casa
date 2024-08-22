@@ -164,3 +164,36 @@
     object-fit: cover; /* This ensures the image covers the area while maintaining aspect ratio */
     width: 100%;
 }
+
+.postDetails {
+    font-size: large;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.postImage {
+    width: 100%;
+    height: fit-content;
+    object-fit: cover;
+    image-rendering: auto;          
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.post-details-container {
+    border: 2px solid #ffffff; /* Blue border color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px; /* Add some padding inside the div */
+    margin-top: 20px; /* Add some space above the div */
+    background-color: #1c1c1c;
+}
+
+.checkout-box {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.post-details-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}

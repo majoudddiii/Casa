@@ -54,7 +54,7 @@ app.post("/upload", upload.array('picture', 10), (req, res) => {
     console.log('Body:', req.body);
 
     const files = req.files;
-    const { buildingName, city, town, address, size, bedrom, bathroom, pool, poolSize, roomService, commentsText } = req.body;
+    const { buildingName, city, town, address, size, bedrom, bathroom, pool, poolSize, roomService, commentsText, price } = req.body;
 
     // Initialize session data if it doesn't exist
     if (!req.session.uploadedData) {
@@ -78,6 +78,7 @@ app.post("/upload", upload.array('picture', 10), (req, res) => {
         poolSize: pool === "on" ? poolSize : null,
         roomService: roomService === "on",
         commentsText,
+        price,
     };
 
     // Only add new data to the session
@@ -88,6 +89,29 @@ app.post("/upload", upload.array('picture', 10), (req, res) => {
     // Redirect to prevent form resubmission on refresh
     res.redirect("/");
 });
+
+app.get('/details', (req, res) => {
+    const { pictures, buildingName, city, town, address, size, bedrom, bathroom, pool, poolSize, roomService, commentsText, price } = req.query;
+
+    const pictureArray = pictures.split(',');
+
+    res.render('details.ejs', {
+        pictureArray,
+        buildingName,
+        city,
+        town,
+        address,
+        size,
+        bedrom,
+        bathroom,
+        pool,
+        poolSize,
+        roomService,
+        commentsText,
+        price
+    });
+});
+
 
 // Other routes...
 app.post("/index", (req, res) => res.redirect("/"));

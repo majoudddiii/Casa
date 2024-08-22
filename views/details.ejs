@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="/styles/index.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>Casa: details</title>
+</head>
+<body class="bg">
+    <!--Header-->
+    <%- include("partials/header.ejs") %>
+
+    <div class="container py-5">
+        <h1 class="display-5 fw-bold lh-1 mb-3 text blueText"><%= buildingName %></h1>
+    
+        <div id="carouselDisplay" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner postImage">
+                <% pictureArray.forEach((picture, picIndex) => { %>
+                    <div class="carousel-item <%= picIndex === 0 ? 'active' : '' %>">
+                        <img src="<%= picture %>" class="postImage" alt="Image">
+                    </div>
+                <% }) %>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselDisplay" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselDisplay" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    
+        <div class="row">
+            <!-- Details Section with Border -->
+            <div class="col-md-12">
+                <div class="post-details-container border rounded p-3 d-flex justify-content-between">
+                    <div class="details-section me-4" style="flex: 1; color: white;">
+                        <h3 class="text-muted mb-3" style="color: white;">Property Details</h3>
+                        <p class="lead postDetails"><strong>Location:</strong> <%= city %>, <%= town %>, <%= address %></p>
+                        <p class="lead postDetails"><strong>Size:</strong> <%= size %> ㎡</p>
+                        <p class="lead postDetails"><strong>Bedrooms:</strong> <%= bedrom %></p>
+                        <p class="lead postDetails"><strong>Bathrooms:</strong> <%= bathroom %></p>
+                        <p class="lead postDetails"><strong>Pool:</strong> <%= pool === 'true' ? 'Yes' : 'No' %></p>
+                        <% if (pool === 'true' && poolSize) { %>
+                            <p class="lead postDetails"><strong>Pool Size:</strong> <%= poolSize %></p>
+                        <% } %>
+                        <p class="lead postDetails"><strong>Room Service:</strong> <%= roomService === 'true' ? 'Yes' : 'No' %></p>
+                        <% if (pool === 'true' && poolSize) { %>
+                            <p class="lead postDetails"><strong>Comments:</strong> <%= commentsText %></p>
+                        <% } %>
+                        <hr>
+                        <p class="lead postDetails"><strong>Price:</strong> <%= price %> LYD per night</p>
+                    </div>
+    
+                    <!-- Checkout Box -->
+                    <div class="checkout-box border rounded p-4" style="flex: 0.5; max-width: 350px;" data-price="<%= price %>">
+                        <h4 class="mb-4">Book Your Stay</h4>
+                        <label for="checkin-date" class="form-label">Check-in Date:</label>
+                        <input type="date" id="checkin-date" class="form-control mb-3" />
+    
+                        <label for="checkout-date" class="form-label">Check-out Date:</label>
+                        <input type="date" id="checkout-date" class="form-control mb-3" />
+    
+                        <p class="lead"><strong>Total Days:</strong> <span id="total-days">0</span></p>
+                        <p class="lead"><strong>Total Cost:</strong> <span id="total-cost">0</span> LYD</p>
+    
+                        <button class="btn btn-primary mt-3 w-100" onclick="saveDates()">Save Dates</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+
+    <!--Footer-->
+    <%- include("partials/footer.ejs") %>
+    <script src="/scripts/checkout.js"></script>
+</body>
+</html>

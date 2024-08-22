@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.viewButton').forEach((button, index) => {
         button.addEventListener('click', function () {
             // Retrieve the data attributes from the clicked button
-            const pictures = button.getAttribute('data-picture').split(','); // Assuming pictures is a comma-separated string
+            const pictures = button.getAttribute('data-picture').split(',');
             const buildingName = button.getAttribute('data-building-name');
             const city = button.getAttribute('data-city');
             const town = button.getAttribute('data-town');
@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const poolSize = button.getAttribute('data-poolsize');
             const roomService = button.getAttribute('data-roomService');
             const commentsText = button.getAttribute('data-commentsText');
+            const price = button.getAttribute('data-price');
 
             const poolMessage = pool ? "Yes" : "No";
             const roomServiceMessage = roomService ? "Yes" : "No";
@@ -74,10 +75,35 @@ document.addEventListener('DOMContentLoaded', function () {
                 <hr>
                 <p style="text-decoration: underline;">Comments: </p>
                 <p>${commentsText}</p>
+                <hr>
+                <p>${price}LYD a night</p>
+                <button id="proceedButton" type="button" class="btn btn-sm btn-outline-secondary">Proceed</button>
             `;
 
             // Show the overlay
             overlay.style.display = 'flex';
+
+            // Attach event listener to the Proceed button after it is added to the DOM
+            document.getElementById('proceedButton').addEventListener('click', function () {
+                const queryParams = new URLSearchParams({
+                    pictures: pictures.join(','),
+                    buildingName: buildingName,
+                    city: city,
+                    town: town,
+                    address: address,
+                    size: size,
+                    bedrom: bedrom,
+                    bathroom: bathroom,
+                    pool: pool,
+                    poolSize: poolSize,
+                    roomService: roomService,
+                    commentsText: commentsText,
+                    price: price
+                }).toString();
+
+                const url = `/details?${queryParams}`;
+                window.open(url, '_blank');
+            });
         });
     });
 
