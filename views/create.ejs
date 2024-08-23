@@ -111,11 +111,14 @@
                 <textarea class="form-control comments-area mt-2" name="commentsText" id="commentsText" placeholder="Add any extra comments here."></textarea>
               </div>
 
-              <div class="col-3 pt-3">
-                <label for="prise" class="form-label textLight">Price Per Night</label>
-                <input type="number" class="form-control" name="price" id="size" placeholder="LYD" required="">
-                <div class="invalid-feedback">Please enter a valid number.</div>
-            </div>
+              <div class="pt-3 col-3">
+                <label class="form-label textLight">Price Per Night</label>
+                <div class="input-group has-validation">
+                    <input type="text" class="form-control" name="price" id="price" placeholder="LYD" required="">
+                    <div class="invalid-feedback">Please enter a valid price .</div>
+                </div>
+              </div>
+              
               
     
                 <hr class="my-4">

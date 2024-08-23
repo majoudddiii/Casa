@@ -26,9 +26,28 @@ document.getElementById('checkout-date').addEventListener('change', updateCost);
 function saveDates() {
     const checkinDate = document.getElementById('checkin-date').value;
     const checkoutDate = document.getElementById('checkout-date').value;
+    const guestName = document.getElementById('guest-name').value;
+    const phoneNumber = document.getElementById('phone-number').value;
+    const numberOfGuests = document.getElementById('number-of-guests').value;
 
-    // Save these dates to your server or local storage
-    console.log('Check-in Date:', checkinDate);
-    console.log('Check-out Date:', checkoutDate);
-    alert('Dates saved successfully!');
+    fetch('/create-event', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            checkinDate,
+            checkoutDate,
+            guestName,
+            phoneNumber,
+            numberOfGuests
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }

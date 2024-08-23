@@ -6,7 +6,11 @@ import session from "express-session";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import crypto from 'crypto';
+import { google } from 'googleapis';
+import fs from 'fs';
 
+const SCOPES = ['https://www.googleapis.com/auth/calendar'];
+const TOKEN_PATH = 'token.json';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,6 +21,54 @@ const port = 3000;
 app.use(express.static("public"));
 app.use('/uploads', express.static('uploads')); // Serve static files from uploads
 app.use(bodyParser.urlencoded({ extended: true }));
+
+let oAuth2Client;
+
+// Load client secrets from a local file.
+fs.readFile('credentials.json', (err, content) => {
+    if (err) return console.log('Error loading client secret file:', err);
+    authorize(JSON.parse(content));
+});
+
+function authorize(credentials) {
+    const { client_secret, client_id, redirect_uris } = credentials.web; // Use .web instead of .installed
+    oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+
+    // Check if we have previously stored a token.
+    fs.readFile(TOKEN_PATH, (err, token) => {
+        if (err) return getAccessToken(oAuth2Client);
+        oAuth2Client.setCredentials(JSON.parse(token));
+    });
+}
+
+function getAccessToken(oAuth2Client) {
+    const authUrl = oAuth2Client.generateAuthUrl({
+        access_type: 'offline',
+        scope: SCOPES,
+    });
+    console.log('Authorize this app by visiting this url:', authUrl);
+
+    // Here you'd typically redirect the user to the authUrl, 
+    // but for now we'll handle it manually
+}
+
+// Handle OAuth2 callback and exchange code for token
+app.get('/oauth2callback', (req, res) => {
+    const code = req.query.code;
+    oAuth2Client.getToken(code, (err, token) => {
+        if (err) return console.error('Error retrieving access token', err);
+        oAuth2Client.setCredentials(token);
+
+        // Store the token for later use
+        fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+            if (err) return console.error(err);
+            console.log('Token stored to', TOKEN_PATH);
+        });
+
+        res.redirect('/'); // Redirect to the home page after authentication
+    });
+});
+
 
 // Set up Multer storage with a custom storage engine
 const storage = multer.diskStorage({
@@ -42,6 +94,22 @@ app.use(session({
 }));
 
 app.set('view engine', 'ejs');
+
+app.get('/oauth2callback', (req, res) => {
+    const code = req.query.code;
+    oAuth2Client.getToken(code, (err, token) => {
+        if (err) return console.error('Error retrieving access token', err);
+        oAuth2Client.setCredentials(token);
+
+        // Store the token for later use
+        fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+            if (err) return console.error(err);
+            console.log('Token stored to', TOKEN_PATH);
+        });
+
+        res.redirect('/');
+    });
+});
 
 // Main page route
 app.get("/", (req, res) => {
@@ -88,6 +156,37 @@ app.post("/upload", upload.array('picture', 10), (req, res) => {
 
     // Redirect to prevent form resubmission on refresh
     res.redirect("/");
+});
+
+app.post('/create-event', async (req, res) => {
+    const { checkinDate, checkoutDate, guestName, phoneNumber, numberOfGuests } = req.body;
+
+    const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
+    const event = {
+        summary: `Booking by ${guestName}`,
+        description: `Phone: ${phoneNumber}\nGuests: ${numberOfGuests}`,
+        start: {
+            date: checkinDate,
+            timeZone: 'Libya', // Set to your time zone
+        },
+        end: {
+            date: checkoutDate,
+            timeZone: 'Libya', // Set to your time zone
+        },
+    };
+
+    try {
+        await calendar.events.insert({
+            auth: oAuth2Client,
+            calendarId: 'primary', // Use the user's primary calendar
+            resource: event,
+        });
+
+        res.json({ message: 'Event created successfully' });
+    } catch (error) {
+        console.error('Error creating event:', error);
+        res.status(500).json({ message: 'Error creating event' });
+    }
 });
 
 app.get('/details', (req, res) => {

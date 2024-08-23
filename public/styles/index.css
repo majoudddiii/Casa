@@ -197,3 +197,83 @@
     border: 1px solid #ddd;
     border-radius: 8px;
 }
+
+.post-details-container {
+    padding: 15px;
+}
+
+.checkout-box {
+    padding: 15px;
+}
+
+.postcarousel-inner {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Set the height of the carousel */
+}
+
+.postcarousel-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This makes the image cover the square area while maintaining its aspect ratio */
+}
+
+/* Carousel container */
+#carouselDisplay {
+    width: 100%; /* Take full width */
+    display: flex;
+    justify-content: center; /* Center the carousel container */
+}
+
+/* Centering images within the carousel */
+.carousel-inner-details {
+    width: 700px; /* Width of the carousel */
+    height: 400px; /* Fixed height for the carousel to make it square */
+    display: flex;
+    align-items: center; /* Vertically center images */
+    justify-content: left; /* Horizontally center images */
+    overflow: hidden; /* Hide overflow */
+}
+
+/* Image styling */
+.carousel-inner-details img {
+    max-height: 100%; /* Limit image height */
+    max-width: 100%; /* Limit image width */
+    object-fit: contain; /* Maintain aspect ratio without stretching */
+}
+
+/* Styling for the H1 title */
+.blueText {
+    text-decoration: underline;
+}
+
+/* Styling for the post details and checkout box */
+.post-details-container-details {
+    background-color: #333; /* Ensure consistent background color */
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between; /* Align items horizontally */
+}
+
+.post-details-content-details {
+    flex: 2;
+    margin-right: 15px;
+}
+
+.checkout-box-details {
+    flex: 1;
+    background-color: #444; /* Slightly different background for contrast */
+    padding: 15px;
+    border-radius: 5px;
+}
+
+/* Make the labels white */
+.checkout-box-details label {
+    color: white;
+}
+
+/* Ensure the text inside the input fields remains black */
+.checkout-box-details input[type="date"] {
+    color: black;
+}
