@@ -8,6 +8,7 @@ import { dirname } from 'path';
 import crypto from 'crypto';
 import { google } from 'googleapis';
 import fs from 'fs';
+import readline from 'readline';
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 const TOKEN_PATH = 'token.json';
@@ -36,8 +37,12 @@ function authorize(credentials) {
 
     // Check if we have previously stored a token.
     fs.readFile(TOKEN_PATH, (err, token) => {
-        if (err) return getAccessToken(oAuth2Client);
+        if (err) {
+            console.log('No token found, generating new token.');
+            return getAccessToken(oAuth2Client);
+        }
         oAuth2Client.setCredentials(JSON.parse(token));
+        console.log('Token loaded.');
     });
 }
 
@@ -48,27 +53,53 @@ function getAccessToken(oAuth2Client) {
     });
     console.log('Authorize this app by visiting this url:', authUrl);
 
-    // Here you'd typically redirect the user to the authUrl, 
-    // but for now we'll handle it manually
+    // Wait for the user to provide the authorization code
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+    rl.question('Enter the code from that page here: ', (code) => {
+        rl.close();
+        oAuth2Client.getToken(code, (err, token) => {
+            if (err) {
+                console.error('Error retrieving access token', err);
+                return;
+            }
+            oAuth2Client.setCredentials(token);
+
+            // Store the token to disk for later program executions
+            fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+                if (err) {
+                    console.error('Error saving the token', err);
+                } else {
+                    console.log('Token stored to', TOKEN_PATH);
+                }
+            });
+        });
+    });
 }
 
 // Handle OAuth2 callback and exchange code for token
 app.get('/oauth2callback', (req, res) => {
     const code = req.query.code;
     oAuth2Client.getToken(code, (err, token) => {
-        if (err) return console.error('Error retrieving access token', err);
+        if (err) {
+            console.error('Error retrieving access token', err);
+            return res.status(400).send('Error retrieving access token');
+        }
         oAuth2Client.setCredentials(token);
 
         // Store the token for later use
         fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-            if (err) return console.error(err);
+            if (err) {
+                console.error('Error saving the token', err);
+                return res.status(500).send('Error saving the token');
+            }
             console.log('Token stored to', TOKEN_PATH);
+            res.redirect('/'); // Redirect to the home page after authentication
         });
-
-        res.redirect('/'); // Redirect to the home page after authentication
     });
 });
-
 
 // Set up Multer storage with a custom storage engine
 const storage = multer.diskStorage({
@@ -95,26 +126,20 @@ app.use(session({
 
 app.set('view engine', 'ejs');
 
-app.get('/oauth2callback', (req, res) => {
-    const code = req.query.code;
-    oAuth2Client.getToken(code, (err, token) => {
-        if (err) return console.error('Error retrieving access token', err);
-        oAuth2Client.setCredentials(token);
-
-        // Store the token for later use
-        fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-            if (err) return console.error(err);
-            console.log('Token stored to', TOKEN_PATH);
-        });
-
-        res.redirect('/');
-    });
+let preExistingPosts = [];
+fs.readFile('preExistingPosts.json', 'utf8', (err, data) => {
+    if (err) {
+        console.log('Error reading pre-existing posts:', err);
+    } else {
+        preExistingPosts = JSON.parse(data);
+    }
 });
 
 // Main page route
 app.get("/", (req, res) => {
-    // Only render, don't add new data here
-    res.render("index.ejs", { uploadedData: req.session.uploadedData || [] });
+    // Combine session-based posts with pre-existing posts
+    const allPosts = [...preExistingPosts, ...(req.session.uploadedData || [])];
+    res.render("index.ejs", { uploadedData: allPosts });
 });
 
 app.post("/upload", upload.array('picture', 10), (req, res) => {
@@ -161,24 +186,33 @@ app.post("/upload", upload.array('picture', 10), (req, res) => {
 app.post('/create-event', async (req, res) => {
     const { checkinDate, checkoutDate, guestName, phoneNumber, numberOfGuests } = req.body;
 
+    // Format the dates correctly
+    const startDate = new Date(checkinDate);
+    const endDate = new Date(checkoutDate);
+
     const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
+
     const event = {
         summary: `Booking by ${guestName}`,
         description: `Phone: ${phoneNumber}\nGuests: ${numberOfGuests}`,
         start: {
-            date: checkinDate,
-            timeZone: 'Libya', // Set to your time zone
+            date: startDate.toISOString().split('T')[0],  // Format as YYYY-MM-DD for all-day events
+            // Alternatively, use dateTime for events with times
+            // dateTime: startDate.toISOString(),  // Example: use dateTime for events with specific times
+            timeZone: 'Libya',
         },
         end: {
-            date: checkoutDate,
-            timeZone: 'Libya', // Set to your time zone
+            date: endDate.toISOString().split('T')[0],  // Format as YYYY-MM-DD for all-day events
+            // Alternatively, use dateTime for events with times
+            // dateTime: endDate.toISOString(),  // Example: use dateTime for events with specific times
+            timeZone: 'Libya',
         },
     };
 
     try {
         await calendar.events.insert({
             auth: oAuth2Client,
-            calendarId: 'primary', // Use the user's primary calendar
+            calendarId: 'primary',
             resource: event,
         });
 
@@ -188,6 +222,7 @@ app.post('/create-event', async (req, res) => {
         res.status(500).json({ message: 'Error creating event' });
     }
 });
+
 
 app.get('/details', (req, res) => {
     const { pictures, buildingName, city, town, address, size, bedrom, bathroom, pool, poolSize, roomService, commentsText, price } = req.query;
@@ -210,7 +245,6 @@ app.get('/details', (req, res) => {
         price
     });
 });
-
 
 // Other routes...
 app.post("/index", (req, res) => res.redirect("/"));

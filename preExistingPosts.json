@@ -1,0 +1,17 @@
+[
+    {
+        "pictures": ["/uploads/sample1.jpg", "/uploads/sample2.jpg"],
+        "buildingName": "Sample Building",
+        "city": "Sample City",
+        "town": "Sample Town",
+        "address": "123 Sample Address",
+        "size": 100,
+        "bedrom": 2,
+        "bathroom": 1,
+        "pool": true,
+        "poolSize": "Large",
+        "roomService": true,
+        "commentsText": "This is a sample pre-existing post.",
+        "price": 150
+    }
+]
