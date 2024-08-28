@@ -296,3 +296,70 @@
     white-space: pre-wrap; /* Preserve whitespace and wrap the text */
 }
 
+/* styles/index.css */
+
+/* Container for the search form */
+#searchForm {
+    display: flex;
+    justify-content: center; /* Center the form horizontally */
+    margin: 20px auto; /* Center the form and add margin */
+}
+
+/* Styling for the search container */
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Add space between elements */
+}
+
+/* Styling for select and input fields */
+#filterSelect, #searchInput, #searchForm button {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    outline: none;
+}
+
+#filterSelect {
+    flex: 1;
+    min-width: 120px; /* Ensure select box has a minimum width */
+}
+
+#searchInput {
+    flex: 2; /* Make the input box larger than the select */
+    min-width: 150px; /* Ensure input has a minimum width */
+}
+
+#searchForm button {
+    background-color:  #6193C2; /* Airbnb's brand color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#searchForm button:hover {
+    background-color:  #6193C2; /* Darker shade for hover effect */
+}
+
+.filter-container {
+    margin-bottom: 10px;
+}
+.filter-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.filter-input input {
+    margin-right: 5px;
+}
+.filter-input button {
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.filter-input button:hover {
+    background-color: darkred;
+}

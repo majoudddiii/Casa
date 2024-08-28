@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const town = button.getAttribute('data-town');
             const address = button.getAttribute('data-address');
             const size = button.getAttribute('data-size');
-            const bedrom = button.getAttribute('data-bedrom');
+            const bedroom = button.getAttribute('data-bedroom');
             const bathroom = button.getAttribute('data-bathroom');
             const pool = button.getAttribute('data-pool') === 'true';
             const poolSize = button.getAttribute('data-poolsize');
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <h5 style="padding-top: 10px;">${buildingName}</h5>
                 <hr>
                 <p>${city}, ${town}, ${address}</p>
-                <p>Size: ${size} ㎡, ${bedrom} bed, ${bathroom} bath</p>
+                <p>Size: ${size} ㎡, ${bedroom} bed, ${bathroom} bath</p>
                 <ul>
                     <li>Pool: ${poolMessage}</li>
                     ${pool && poolSize ? `<li>Pool Size: ${poolSize}</li>` : ''}
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     town: town,
                     address: address,
                     size: size,
-                    bedrom: bedrom,
+                    bedroom: bedroom,
                     bathroom: bathroom,
                     pool: pool,
                     poolSize: poolSize,

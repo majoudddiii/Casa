@@ -21,3 +21,36 @@ document.getElementById('searchButton').addEventListener('click', () => {
       })
       .catch(error => console.error('Error:', error));
   });
+
+  function addFilter() {
+    const selectElement = document.getElementById('filterSelect');
+    const selectedValue = selectElement.value;
+    const filterFieldsContainer = document.getElementById('filterFields');
+
+    if (selectedValue) {
+        // Create new filter input field
+        const filterContainer = document.createElement('div');
+        filterContainer.className = 'filter-input';
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = selectedValue;
+        input.placeholder = `Enter ${selectedValue}`;
+        
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'X';
+        removeButton.onclick = () => {
+            filterFieldsContainer.removeChild(filterContainer);
+        };
+
+        filterContainer.appendChild(input);
+        filterContainer.appendChild(removeButton);
+
+        filterFieldsContainer.appendChild(filterContainer);
+
+        // Clear selection
+        selectElement.value = '';
+    } else {
+        alert('Please select a filter option.');
+    }
+}

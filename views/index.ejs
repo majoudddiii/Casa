@@ -12,7 +12,6 @@
     <!--Header-->
     <%- include("partials/header.ejs") %>
 
-
     <!--Posts-->
     <% if (uploadedData && uploadedData.length > 0) { %>
     <main>
@@ -24,16 +23,26 @@
             </div>
         </section>
 
-            <!--Search Box-->
-            <form id="searchForm" action="/search" method="get" class="" style="display: flex; align-content: center;">
-                <input type="text" name="city" placeholder="City">
-                <input type="text" name="town" placeholder="Town">
-                <input type="number" name="beds" placeholder="Beds">
-                <input type="number" name="bath" placeholder="Bath">
-                <input type="number" name="size" placeholder="Size">
+        <!-- Search Box -->
+        <form id="searchForm" action="/search" method="get">
+            <div class="search-container">
+                <select id="filterSelect">
+                    <option value="">Select filter</option>
+                    <option value="city">City</option>
+                    <option value="town">Town</option>
+                    <option value="beds">Beds</option>
+                    <option value="bath">Bath</option>
+                    <option value="size">Size</option>
+                </select>
+                <button type="button" onclick="addFilter()">Add</button>
+                <div id="filterFields"></div>
                 <button type="submit">Search</button>
-            </form>
-            
+            </div>
+        </form>
+
+
+
+        
 
         <div class="album py-5 bg-body-tertiary">
             <div class="container">
@@ -41,40 +50,37 @@
                     <% uploadedData.forEach((data, index) => { %>
                     <div class="col">
                         <div class="card shadow-sm cardHeight">
-                            <% if (data.pictures && data.pictures.length > 0) { %>
-                                <div id="carousel<%= index %>" class="carousel slide mb-6">
-                                    <div class="carousel-indicators">
-                                        <% data.pictures.forEach((_, picIndex) => { %>
-                                            <button 
-                                                type="button" 
-                                                data-bs-target="#carousel<%= index %>" 
-                                                data-bs-slide-to="<%= picIndex %>" 
-                                                class="<%= picIndex === 0 ? 'active' : '' %>" 
-                                                aria-current="<%= picIndex === 0 ? 'true' : 'false' %>" 
-                                                aria-label="Slide <%= picIndex + 1 %>">
-                                            </button>
-                                        <% }) %>
-                                    </div>
-                                    <div class="carousel-inner">
-                                        <% data.pictures.forEach((picture, picIndex) => { %>
-                                            <div class="carousel-item <%= picIndex === 0 ? 'active' : '' %>">
-                                                <img src="<%= picture %>" class="d-block w-100" alt="Image">
-                                                <div class="container">
-                                                    
-                                                </div>
-                                            </div>
-                                        <% }) %>
-                                    </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel<%= index %>" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel<%= index %>" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
+                            <div id="carousel<%= index %>" class="carousel slide mb-6">
+                                <div class="carousel-indicators">
+                                    <% data.pictures.forEach((_, picIndex) => { %>
+                                        <button 
+                                            type="button" 
+                                            data-bs-target="#carousel<%= index %>" 
+                                            data-bs-slide-to="<%= picIndex %>" 
+                                            class="<%= picIndex === 0 ? 'active' : '' %>" 
+                                            aria-current="<%= picIndex === 0 ? 'true' : 'false' %>" 
+                                            aria-label="Slide <%= picIndex + 1 %>">
+                                        </button>
+                                    <% }) %>
                                 </div>
-                            <% } %>
+                                <div class="carousel-inner">
+                                    <% data.pictures.forEach((picture, picIndex) => { %>
+                                        <div class="carousel-item <%= picIndex === 0 ? 'active' : '' %>">
+                                            <img src="<%= picture %>" class="d-block w-100" alt="Image">
+                                            <div class="container">
+                                            </div>
+                                        </div>
+                                    <% }) %>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel<%= index %>" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel<%= index %>" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
                             <div class="card-body">
                                 <p class="card-text">
                                     <%= data.buildingName %>. 
@@ -109,7 +115,9 @@
             </div>
         </div>
     </main>
-    <% } else { %>
+    <% } %>
+
+    <% if (!uploadedData || uploadedData.length === 0) { %>
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-5 col-md-8 mx-auto">
@@ -119,7 +127,6 @@
     </section>
     <% } %>
 
-
     <div id="overlay" class="overlay" style="display: none;">
       <div class="overlay-content">
           <span class="close-btn" id="closeOverlay">&times;</span>
@@ -128,7 +135,6 @@
           </div>
       </div>
     </div>
-  
 
     <!--Footer-->
     <%- include("partials/footer.ejs") %>

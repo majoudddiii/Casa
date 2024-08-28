@@ -135,27 +135,6 @@ fs.readFile('preExistingPosts.json', 'utf8', (err, data) => {
     }
 });
 
-// Function to filter posts
-function filterByCity(post, city) {
-    return !city || post.city.toLowerCase().includes(city.toLowerCase());
-}
-
-function filterByTown(post, town) {
-    return !town || post.town.toLowerCase().includes(town.toLowerCase());
-}
-
-function filterByBeds(post, beds) {
-    return !beds || Number(post.bedroom) === Number(beds);
-}
-
-function filterByBath(post, bath) {
-    return !bath || Number(post.bathroom) === Number(bath);
-}
-
-function filterBySize(post, size) {
-    return !size || Number(post.size) === Number(size);
-}
-
 // Main page route
 app.get("/", (req, res) => {
     // Combine session-based posts with pre-existing posts
@@ -163,23 +142,53 @@ app.get("/", (req, res) => {
     res.render("index.ejs", { uploadedData: allPosts });
 });
 
+function filterByCity(post, city) {
+    return !city || (post.city && post.city.toLowerCase().includes(city.toLowerCase()));
+}
+
+function filterByTown(post, town) {
+    return !town || (post.town && post.town.toLowerCase().includes(town.toLowerCase()));
+}
+
+function filterByBeds(post, beds) {
+    return beds === null || (post.bedroom && Number(post.bedroom) === beds);
+}
+
+function filterByBath(post, bath) {
+    return bath === null || (post.bathroom && Number(post.bathroom) === bath);
+}
+
+function filterBySize(post, size) {
+    return size === null || (post.size && Number(post.size) === size);
+}
+
+
 app.get('/search', (req, res) => {
-    console.log(req.query); // Add this line to see what's being sent
+    console.log('Session Uploaded Data:', req.session.uploadedData);
+    console.log('Pre-existing Posts:', preExistingPosts);
+
     const { city, town, beds, bath, size } = req.query;
 
+    const numBeds = beds ? Number(beds) : null;
+    const numBath = bath ? Number(bath) : null;
+    const numSize = size ? Number(size) : null;
+
     const allPosts = [...preExistingPosts, ...(req.session.uploadedData || [])];
+
+    console.log('All Posts:', allPosts); // Log combined data
 
     const filteredPosts = allPosts.filter(post => {
         return (
             filterByCity(post, city) &&
             filterByTown(post, town) &&
-            filterByBeds(post, beds) &&
-            filterByBath(post, bath) &&
-            filterBySize(post, size)
+            filterByBeds(post, numBeds) &&
+            filterByBath(post, numBath) &&
+            filterBySize(post, numSize)
         );
     });
 
-    // Send the filtered posts back to the client
+    console.log('Filtered Posts:', filteredPosts); // Log filtered data
+
     res.render("index.ejs", { uploadedData: filteredPosts });
 });
 
