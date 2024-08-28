@@ -12,36 +12,35 @@
     <!--Header-->
     <%- include("partials/header.ejs") %>
 
-    <!--Hero-->
-    <div class="container col-xxl-8 px-4 py-5">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-            <div class="col-10 col-sm-8 col-lg-6">
-                <img src="./pics/santorini.png" class="d-block mx-lg-auto img-fluid border" alt="Bootstrap Themes" width="1000" loading="lazy">
-            </div>
-            <div class="col-lg-6">
-                <h1 class="display-5 fw-bold lh-1 mb-3 text blueText"><u>Vacation made easier</u></h1>
-                <p class="lead text pt-3">Find the vacation home that you want. Connect directly to home owners to rent and make your vacation easier</p>
-            </div>
-        </div>
-    </div>
 
     <!--Posts-->
     <% if (uploadedData && uploadedData.length > 0) { %>
     <main>
         <section class="py-5 text-center container">
-            <div class="row py-lg-5">
+            <div class="row ">
                 <div class="col-lg-7 col-md-8 mx-auto">
                     <h1 class="display-5 fw-bold lh-1 mb-3 text blueText"><u>Explore what people have to offer</u></h1>
                 </div>
             </div>
         </section>
 
+            <!--Search Box-->
+            <form id="searchForm" action="/search" method="get" class="" style="display: flex; align-content: center;">
+                <input type="text" name="city" placeholder="City">
+                <input type="text" name="town" placeholder="Town">
+                <input type="number" name="beds" placeholder="Beds">
+                <input type="number" name="bath" placeholder="Bath">
+                <input type="number" name="size" placeholder="Size">
+                <button type="submit">Search</button>
+            </form>
+            
+
         <div class="album py-5 bg-body-tertiary">
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     <% uploadedData.forEach((data, index) => { %>
                     <div class="col">
-                        <div class="card shadow-sm">
+                        <div class="card shadow-sm cardHeight">
                             <% if (data.pictures && data.pictures.length > 0) { %>
                                 <div id="carousel<%= index %>" class="carousel slide mb-6">
                                     <div class="carousel-indicators">
@@ -78,22 +77,22 @@
                             <% } %>
                             <div class="card-body">
                                 <p class="card-text">
-                                    <%= data.buildingName %>. <%= data.city %>, <%= data.town %>, <%= data.address %> <hr> <%= data.size %> ㎡
+                                    <%= data.buildingName %>. 
                                 </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-body-secondary">
-                                        <%= data.bedrom %>bed, <%= data.bathroom %>bath
-                                    </small>
-                                </div>
+                                <hr>
+                                <p class="card-text">
+                                    <%= data.city %>,  <%= data.town %>,  <%= data.address %>
+                                </p>
                             </div>
                             <button type="button" class="btn btn-sm btn-outline-secondary viewButton"
+                                onclick="openOverlay()"
                                 data-picture="<%= data.pictures.join(',') %>"
                                 data-building-name="<%= data.buildingName %>"
                                 data-city="<%= data.city %>"
                                 data-town="<%= data.town %>"
                                 data-address="<%= data.address %>"
                                 data-size="<%= data.size %>"
-                                data-bedrom="<%= data.bedrom %>"
+                                data-bedroom="<%= data.bedroom %>"
                                 data-bathroom="<%= data.bathroom %>"
                                 data-pool="<%= data.pool %>"
                                 data-poolsize="<%= data.poolSize %>"
@@ -134,5 +133,6 @@
     <!--Footer-->
     <%- include("partials/footer.ejs") %>
     <script src="/scripts/overlay.js"></script>
+    <script src="/scripts/filter.js"></script>
 </body>
 </html>

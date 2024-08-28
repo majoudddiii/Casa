@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </ul>
                 <hr>
                 <p style="text-decoration: underline;">Comments: </p>
-                <p>${commentsText}</p>
+                <p class="comments">${commentsText}</p>
                 <hr>
                 <p>${price}LYD a night</p>
                 <button id="proceedButton" type="button" class="btn btn-sm btn-outline-secondary">Proceed</button>
@@ -119,3 +119,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+const overlay = document.getElementById('overlay');
+const closeOverlayBtn = document.getElementById('closeOverlay');
+
+// Function to open the overlay and disable background scroll
+function openOverlay() {
+    overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Disable background scroll
+}
+
+// Function to close the overlay and re-enable background scroll
+function closeOverlay() {
+    overlay.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Re-enable background scroll
+}
+
+// Event listener for the close button
+closeOverlayBtn.addEventListener('click', closeOverlay);
+
+// Event listener for clicking anywhere outside the overlay content to close the overlay
+overlay.addEventListener('click', function(event) {
+    if (event.target === overlay) {
+        closeOverlay();
+    }
+});
+
+// You may have other triggers to open the overlay, so make sure to call openOverlay() accordingly

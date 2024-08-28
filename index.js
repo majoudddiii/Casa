@@ -135,6 +135,27 @@ fs.readFile('preExistingPosts.json', 'utf8', (err, data) => {
     }
 });
 
+// Function to filter posts
+function filterByCity(post, city) {
+    return !city || post.city.toLowerCase().includes(city.toLowerCase());
+}
+
+function filterByTown(post, town) {
+    return !town || post.town.toLowerCase().includes(town.toLowerCase());
+}
+
+function filterByBeds(post, beds) {
+    return !beds || Number(post.bedroom) === Number(beds);
+}
+
+function filterByBath(post, bath) {
+    return !bath || Number(post.bathroom) === Number(bath);
+}
+
+function filterBySize(post, size) {
+    return !size || Number(post.size) === Number(size);
+}
+
 // Main page route
 app.get("/", (req, res) => {
     // Combine session-based posts with pre-existing posts
@@ -142,12 +163,32 @@ app.get("/", (req, res) => {
     res.render("index.ejs", { uploadedData: allPosts });
 });
 
+app.get('/search', (req, res) => {
+    console.log(req.query); // Add this line to see what's being sent
+    const { city, town, beds, bath, size } = req.query;
+
+    const allPosts = [...preExistingPosts, ...(req.session.uploadedData || [])];
+
+    const filteredPosts = allPosts.filter(post => {
+        return (
+            filterByCity(post, city) &&
+            filterByTown(post, town) &&
+            filterByBeds(post, beds) &&
+            filterByBath(post, bath) &&
+            filterBySize(post, size)
+        );
+    });
+
+    // Send the filtered posts back to the client
+    res.render("index.ejs", { uploadedData: filteredPosts });
+});
+
 app.post("/upload", upload.array('picture', 10), (req, res) => {
     console.log('Files:', req.files);
     console.log('Body:', req.body);
 
     const files = req.files;
-    const { buildingName, city, town, address, size, bedrom, bathroom, pool, poolSize, roomService, commentsText, price } = req.body;
+    const { buildingName, city, town, address, size, bedroom, bathroom, pool, poolSize, roomService, commentsText, price } = req.body;
 
     // Initialize session data if it doesn't exist
     if (!req.session.uploadedData) {
@@ -165,7 +206,7 @@ app.post("/upload", upload.array('picture', 10), (req, res) => {
         town,
         address,
         size,
-        bedrom,
+        bedroom,
         bathroom,
         pool: pool === "on",
         poolSize: pool === "on" ? poolSize : null,
@@ -223,9 +264,8 @@ app.post('/create-event', async (req, res) => {
     }
 });
 
-
 app.get('/details', (req, res) => {
-    const { pictures, buildingName, city, town, address, size, bedrom, bathroom, pool, poolSize, roomService, commentsText, price } = req.query;
+    const { pictures, buildingName, city, town, address, size, bedroom, bathroom, pool, poolSize, roomService, commentsText, price } = req.query;
 
     const pictureArray = pictures.split(',');
 
@@ -236,7 +276,7 @@ app.get('/details', (req, res) => {
         town,
         address,
         size,
-        bedrom,
+        bedroom,
         bathroom,
         pool,
         poolSize,
