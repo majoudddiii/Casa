@@ -16,7 +16,7 @@
     <% if (uploadedData && uploadedData.length > 0) { %>
     <main>
         <section class="py-5 text-center container">
-            <div class="row ">
+            <div class="row">
                 <div class="col-lg-7 col-md-8 mx-auto">
                     <h1 class="display-5 fw-bold lh-1 mb-3 text blueText"><u>Explore what people have to offer</u></h1>
                 </div>
@@ -24,15 +24,13 @@
         </section>
 
         <!-- Search Box -->
-        <form id="searchForm" action="/search" method="get">
+        <form id="searchForm" action="/search" method="get" autocomplete="off">
             <div class="search-container">
                 <select id="filterSelect">
                     <option value="">Select filter</option>
                     <option value="city">City</option>
-                    <option value="town">Town</option>
                     <option value="beds">Beds</option>
                     <option value="bath">Bath</option>
-                    <option value="size">Size</option>
                 </select>
                 <button type="button" onclick="addFilter()">Add</button>
                 <div id="filterFields"></div>
@@ -41,10 +39,9 @@
         </form>
 
 
+        <hr style="border: 1px solid white;">
 
-        
-
-        <div class="album py-5 bg-body-tertiary">
+        <div class="posts-container py-5">
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     <% uploadedData.forEach((data, index) => { %>

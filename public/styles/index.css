@@ -322,14 +322,25 @@
 }
 
 #filterSelect {
-    flex: 1;
-    min-width: 120px; /* Ensure select box has a minimum width */
+    flex: 2; /* Adjust as needed to match the desired size */
+    min-width: 150px; /* Ensure a minimum width */
 }
 
-#searchInput {
-    flex: 2; /* Make the input box larger than the select */
-    min-width: 150px; /* Ensure input has a minimum width */
+#filterSelect, .searchInput {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 14px;
+    outline: none;
+    background-color: #ffffff; /* Ensure background color matches */
+    color: black; /* Ensure text color is consistent */
 }
+
+/* CSS for dropdown styling */
+.searchInput {
+    flex: 2; /* Make the dropdown box larger than the other elements */
+}
+
 
 #searchForm button {
     background-color:  #6193C2; /* Airbnb's brand color */
@@ -349,17 +360,56 @@
 .filter-input {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
 }
 .filter-input input {
     margin-right: 5px;
 }
 .filter-input button {
-    background-color: red;
     color: white;
     border: none;
     cursor: pointer;
 }
-.filter-input button:hover {
-    background-color: darkred;
+
+.search-container {
+    background-color:  #1c1c1c; /* Example background color */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+.posts-container {
+    background-color:  #1c1c1c; /* Same background color as search box */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card {
+    background-color: #ffffff; /* Ensure posts have a different background color for cards */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+
+
+.filter-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Optional: Add spacing between filter inputs */
+  }
+  
+  .textLabel {
+    margin-right: 10px; /* Add spacing between the label and the dropdown */
+    color: white;
+    font-size: 20px;
+  }
+  
+  .searchInput {
+    flex: 1; /* Allow the dropdown to take up available space */
+    margin-right: 10px; /* Add spacing between the dropdown and the remove button */
+  }
+  
+  .filter-input button {
+    flex-shrink: 0; /* Prevent the button from shrinking */
+  }
+  
