@@ -183,21 +183,18 @@ app.get('/search', (req, res) => {
 });
 
 app.post("/upload", upload.array('picture', 10), (req, res) => {
-    console.log('Files:', req.files);
-    console.log('Body:', req.body);
-
     const files = req.files;
-    const { buildingName, city, town, address, size, bedroom, bathroom, pool, poolSize, roomService, commentsText, price } = req.body;
+    const {
+        buildingName, city, town, address, size, bedroom, bathroom, pool, poolSize, roomService, commentsText, price,
+        profilePicture, creatorName, rating
+    } = req.body;
 
-    // Initialize session data if it doesn't exist
     if (!req.session.uploadedData) {
         req.session.uploadedData = [];
     }
 
-    // Create an array of image paths
     const imagePaths = files.map(file => `/uploads/${file.filename}`);
 
-    // Create a new post object
     const newPost = {
         pictures: imagePaths,
         buildingName,
@@ -212,14 +209,13 @@ app.post("/upload", upload.array('picture', 10), (req, res) => {
         roomService: roomService === "on",
         commentsText,
         price,
+        profilePicture,
+        creatorName,
+        rating,
     };
 
-    // Only add new data to the session
     req.session.uploadedData.push(newPost);
 
-    console.log('Uploaded Data:', req.session.uploadedData);
-
-    // Redirect to prevent form resubmission on refresh
     res.redirect("/");
 });
 
@@ -264,7 +260,7 @@ app.post('/create-event', async (req, res) => {
 });
 
 app.get('/details', (req, res) => {
-    const { pictures, buildingName, city, town, address, size, bedroom, bathroom, pool, poolSize, roomService, commentsText, price } = req.query;
+    const { pictures, buildingName, city, town, address, size, bedroom, bathroom, pool, poolSize, roomService, commentsText, price, profilePicture, creatorName, rating } = req.query;
 
     const pictureArray = pictures.split(',');
 
@@ -281,7 +277,10 @@ app.get('/details', (req, res) => {
         poolSize,
         roomService,
         commentsText,
-        price
+        price,
+        profilePicture,
+        creatorName,
+        rating,
     });
 });
 

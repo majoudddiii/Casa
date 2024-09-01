@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const roomService = button.getAttribute('data-roomService');
             const commentsText = button.getAttribute('data-commentsText');
             const price = button.getAttribute('data-price');
+            const profilePicture = button.getAttribute('data-profilePicture');
+            const creatorName = button.getAttribute('data-creatorName');
+            const rating = button.getAttribute('data-rating');
 
             const poolMessage = pool ? "Yes" : "No";
             const roomServiceMessage = roomService ? "Yes" : "No";
@@ -98,7 +101,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     poolSize: poolSize,
                     roomService: roomService,
                     commentsText: commentsText,
-                    price: price
+                    price: price,
+                    profilePicture: profilePicture,
+                    creatorName: creatorName,
+                    rating: rating,
                 }).toString();
 
                 const url = `/details?${queryParams}`;

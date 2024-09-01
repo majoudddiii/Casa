@@ -12,7 +12,10 @@
         "poolSize": "8m x 8m",
         "roomService": true,
         "commentsText": "Free internet. Generator. No pets.",
-        "price": 1500
+        "price": 1500,
+        "profilePicture": "/uploads/1.4.jpeg",
+        "creatorName": "Omar Al-Tayeb",
+        "rating": 4.5
     },
     {
         "pictures": ["/uploads/2.1.jpeg", "/uploads/2.2.jpeg", "/uploads/2.3.jpeg"],
@@ -27,7 +30,10 @@
         "poolSize": "5m x 7m",
         "roomService": true,
         "commentsText": "Free internet. Generator. No pets.",
-        "price": 1500
+        "price": 1500,
+        "profilePicture": "/uploads/2.4.jpeg",
+        "creatorName": "Mustafa Zayed",
+        "rating": 5
     },
     {
         "pictures": ["/uploads/3.1.jpeg", "/uploads/3.2.jpeg", "/uploads/3.3.jpeg"],
@@ -42,7 +48,10 @@
         "poolSize": "",
         "roomService": true,
         "commentsText": "Free internet.",
-        "price": 1000
+        "price": 1000,
+        "profilePicture": "/uploads/3.4.jpeg",
+        "creatorName": "Ali Al-Mutairi",
+        "rating": 3.5
     },
     {
         "pictures": ["/uploads/4.1.jpeg", "/uploads/4.2.jpeg", "/uploads/4.3.jpeg"],
@@ -57,7 +66,10 @@
         "poolSize": "15m x 6m",
         "roomService": false,
         "commentsText": "Generator.",
-        "price": 2000
+        "price": 2000,
+        "profilePicture": "/uploads/4.4.jpeg",
+        "creatorName": "Salem Bin Khaled",
+        "rating": 3.5
     },
     {
         "pictures": ["/uploads/5.1.jpeg", "/uploads/5.2.jpeg", "/uploads/5.3.jpeg"],
@@ -72,7 +84,10 @@
         "poolSize": "",
         "roomService": true,
         "commentsText": "Free internet. Generator.",
-        "price": 1750
+        "price": 1750,
+        "profilePicture": "/uploads/5.4.jpeg",
+        "creatorName": "Youssef Al-Hadi",
+        "rating": 4
     },
     {
         "pictures": ["/uploads/6.1.jpeg", "/uploads/6.2.jpeg", "/uploads/6.3.jpeg"],
@@ -87,7 +102,10 @@
         "poolSize": "",
         "roomService": false,
         "commentsText": "No pets.",
-        "price": 1000
+        "price": 1000,
+        "profilePicture": "/uploads/6.4.jpeg",
+        "creatorName": "Jamal El-Sadiq",
+        "rating": 3
     },
     {
         "pictures": ["/uploads/7.1.jpeg", "/uploads/7.2.jpeg", "/uploads/7.3.jpeg"],
@@ -101,7 +119,10 @@
         "poolSize": "",
         "roomService": false,
         "commentsText": "No pets.",
-        "price": 500
+        "price": 500,
+        "profilePicture": "/uploads/7.4.jpeg",
+        "creatorName": "Fathi Al-Alem",
+        "rating": 4
     },
     {
         "pictures": ["/uploads/8.1.jpeg", "/uploads/8.2.jpeg", "/uploads/8.3.jpeg"],
@@ -115,6 +136,9 @@
         "poolSize": "5m x 6m",
         "roomService": true,
         "commentsText": "Free internet.",
-        "price": 1500
+        "price": 1500,
+        "profilePicture": "/uploads/8.4.jpeg",
+        "creatorName": "Mahmoud Sulieman",
+        "rating": 5
     }
 ]

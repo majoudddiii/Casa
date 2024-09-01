@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="/styles/index.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Casa: details</title>
 </head>
 
@@ -57,6 +58,17 @@
                         <hr style="border: 1px solid white;">
                         <% } %>
                         <p class="lead text pt-3 postDetails"><%= price %> LYD a night</p>
+                        <hr style="border: 1px solid white;">
+                        <!-- Profile Picture and Creator Name -->
+                        <p class="lead text pt-3 postDetails">
+                            <img src="<%= profilePicture %>" alt="Profile Picture" class="profile-img">
+                            <span class="creator-name"><%= creatorName %></span>
+                            <span class="rating">
+                                <%= rating %> <!-- This will be replaced by stars -->
+                              </span>                              
+                        </p>
+                        
+
                     </div>
                                 
                     <!-- Checkout Box -->
@@ -93,6 +105,7 @@
     <!--Footer-->
     <%- include("partials/footer.ejs") %>
     <script src="/scripts/checkout.js"></script>
+    <script src="/scripts/stars.js"></script>
 </body>
 
 </html>
